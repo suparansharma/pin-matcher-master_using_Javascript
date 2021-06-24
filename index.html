@@ -17,9 +17,9 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="input-section half-width">
-                    <input class="form-control" type="text">
-                    <div class="numbers">
+                <div  class="input-section half-width">
+                    <input id="calInput" class="form-control" type="text">
+                    <div id="digits-container" class="numbers">
                         <div class="calc-body">
                             <div class="calc-button-row">
                               <div class="button">7</div>
@@ -82,5 +82,25 @@ function getPin(){
 
 
     }
+
+
+    document.getElementById('digits-container').addEventListener('click',function(event){
+
+        digit = event.target.innerText;
+        if(isNaN(digit)){
+
+            console.log('it is not a digit');
+        }
+
+        else{
+            const typedInput = document.getElementById('calInput');
+            typedInput.value = typedInput.value + digit;
+
+        }
+    })
+
+
+
+
 </script>
 </html>
