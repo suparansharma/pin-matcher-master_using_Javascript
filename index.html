@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pin Generator</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <div class="row">
@@ -17,24 +20,24 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div  class="input-section half-width">
+                <div class="input-section half-width">
                     <input id="calInput" class="form-control" type="text">
                     <div id="digits-container" class="numbers">
                         <div class="calc-body">
                             <div class="calc-button-row">
-                              <div class="button">7</div>
-                              <div class="button">8</div>
-                              <div class="button">9</div>
+                                <div class="button">7</div>
+                                <div class="button">8</div>
+                                <div class="button">9</div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button">4</div>
-                              <div class="button">5</div>
-                              <div class="button">6</div>
+                                <div class="button">4</div>
+                                <div class="button">5</div>
+                                <div class="button">6</div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button">1</div>
-                              <div class="button">2</div>
-                              <div class="button">3</div>
+                                <div class="button">1</div>
+                                <div class="button">2</div>
+                                <div class="button">3</div>
                             </div>
                             <div class="calc-button-row">
                                 <div class="button">B</div>
@@ -45,58 +48,58 @@
                                 <button onclick="verifyPin()" type="submit" class="submit-btn">Submit</button>
                                 <p class="action-left">3 try left</p>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="notify-section">
+                <p id="notVerify" class="notify">❌ Pin Didn't Match, Please try again</p>
+                <p id="Verify" class="notify">✅ Pin Matched... Secret door is opening for you</p>
+            </div>
         </div>
-        <div class="notify-section">
-            <p id="notVerify" class="notify">❌ Pin Didn't Match, Please try again</p>
-            <p id="Verify" class="notify">✅ Pin Matched... Secret door is opening for you</p>
-        </div>
-    </div>
 </body>
 
 <script>
 
 
-function getPin(){
-    //const randomGenerateMath = (Math.random()*100000+'').split('0')[0];
+    function getPin() {
+        //const randomGenerateMath = (Math.random()*100000+'').split('0')[0];
 
-    const random = Math.random()*10000;
-    const pin = (random + '').split('.')[0];
-    if(pin.length === 4){
-        return pin;
+        const random = Math.random() * 10000;
+        const pin = (random + '').split('.')[0];
+        if (pin.length === 4) {
+            return pin;
+
+        }
+
+        else {
+            return getPin();
+        }
+
+    }
+    //display generate pin
+    function generatePin() {
+
+        const generatePinInput = document.getElementById('pin');
+        generatePinInput.value = getPin();
+
 
     }
 
-    else{
-        return getPin();
-    }
 
-}
-//display generate pin
-    function generatePin(){
-
-       const generatePinInput = document.getElementById('pin');
-       generatePinInput.value = getPin();
-
-
-    }
-
-
-    document.getElementById('digits-container').addEventListener('click',function(event){
+    document.getElementById('digits-container').addEventListener('click', function (event) {
 
         digit = event.target.innerText;
-        if(isNaN(digit)){
+        if (isNaN(digit)) {
 
-            if(digit ==='C'){
+            if (digit === 'C') {
 
                 const typedInput = document.getElementById('calInput');
-            typedInput.value = ' ';
+                typedInput.value = '';
             }
         }
 
-        else{
+        else {
             const typedInput = document.getElementById('calInput');
             typedInput.value = typedInput.value + digit;
 
@@ -104,30 +107,40 @@ function getPin(){
     })
 
 
-    function verifyPin(){
+    function verifyPin() {
 
         const generatePinInput = document.getElementById('pin').value;
         const typedInput = document.getElementById('calInput').value;
-        const notVerifyResult = document.getElementById('notVerify');
+
+
+
+
+        if (generatePinInput === typedInput) {
+
+            displayMatchResult('block', 'none');
+        }
+
+        else {
+
+            // notVerifyResult.style.display = "block";
+
+            //  VerifyResult.style.display = "none";
+
+            displayMatchResult('none', 'block');
+
+
+        }
+
+
+    }
+
+
+    function displayMatchResult(correct, inCorrect) {
         const VerifyResult = document.getElementById('Verify');
+        VerifyResult.style.display = correct;
+        const notVerifyResult = document.getElementById('notVerify');
+        notVerifyResult.style.display = inCorrect;
 
-       
-
-        if(generatePinInput===typedInput){
-
-            notVerifyResult.style.display = "none";
-
-            VerifyResult.style.display = "block";
-        }
-
-        else{
-
-            notVerifyResult.style.display = "block";
-
-             VerifyResult.style.display = "none";
-
-
-        }
 
 
     }
@@ -136,4 +149,5 @@ function getPin(){
 
 
 </script>
+
 </html>
