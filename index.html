@@ -89,7 +89,11 @@ function getPin(){
         digit = event.target.innerText;
         if(isNaN(digit)){
 
-            console.log('it is not a digit');
+            if(digit ==='C'){
+
+                const typedInput = document.getElementById('calInput');
+            typedInput.value = ' ';
+            }
         }
 
         else{
